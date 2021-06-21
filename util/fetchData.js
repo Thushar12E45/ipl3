@@ -5,7 +5,8 @@ async function fetchData(filePath) {
     const Data = await csv().fromFile(filePath);
     return Data;
   } catch (err) {
-    console.log(err);
+    console.log(err.message);
+    throw new Error('err.message');
   }
 }
 module.exports = fetchData;

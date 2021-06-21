@@ -3,7 +3,7 @@ function matchesWinPerTeam(matches) {
   try {
     if (matches === undefined) {
       throw new Error('Received data is undefined ');
-    } else if (matches === '') {
+    } else if (matches === null) {
       throw new Error('Received data is  null');
     } else {
       const matchesWonPerTeam = {};

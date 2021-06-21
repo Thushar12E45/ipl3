@@ -5,7 +5,7 @@ function economicalBowlers(matches, deliveries, year = 2015) {
   try {
     if (matches === undefined || deliveries === undefined) {
       throw new Error('Received data is undefined');
-    } else if (matches === '' || deliveries === '') {
+    } else if (matches === null || deliveries === null) {
       throw new Error('Received data is  null');
     } else {
       const matchId = matchesByYear(matches, year);
@@ -13,6 +13,8 @@ function economicalBowlers(matches, deliveries, year = 2015) {
       const totalOvers = {};
 
       for (const delivery of deliveries) {
+        if (!delivery.match_id) throw new Error('Unsufficient data');
+
         if (matchId.includes(delivery.match_id)) {
           // No. of runs
           const { bowler } = delivery;

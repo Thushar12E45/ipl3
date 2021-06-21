@@ -1,0 +1,42 @@
+[
+  {
+    "batting_team": "CSK",
+    "runs": 1000,
+    "country": "India",
+    "season": 2012,
+    "id": 1,
+    "match_id": 1,
+    "bowler": "Chahal",
+    "winner": "RCB"
+  },
+  {
+    "batting_team": "RCB",
+    "runs": 1000,
+    "country": "India",
+    "season": 2012,
+    "id": 2,
+    "match_id": 2,
+    "bowler": "Jadeja",
+    "winner": "RCB"
+  },
+  {
+    "batting_team": "KKR",
+    "runs": 1000,
+    "country": "India",
+    "season": 2012,
+    "id": 3,
+    "match_id": 3,
+    "bowler": "Bumrah",
+    "winner": "MI"
+  },
+  {
+    "batting_team": "MI",
+    "runs": 1000,
+    "country": "India",
+    "season": 2012,
+    "id": 4,
+    "match_id": 4,
+    "bowler": "Sunil",
+    "winner": "MI"
+  }
+]

@@ -3,14 +3,14 @@ function matchesPlayed(matches) {
   try {
     if (matches === undefined) {
       throw new Error('Received data is undefined ');
-    } else if (matches === '') {
+    } else if (matches === null) {
       throw new Error('Received data is  null');
     } else {
       const matchesPlayedObj = {};
       for (const match of matches) {
         const { season } = match;
 
-        if (!season ) {
+        if (!season) {
           throw new Error('Required data is not present');
         }
 

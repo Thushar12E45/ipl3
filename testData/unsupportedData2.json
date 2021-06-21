@@ -13,7 +13,7 @@
     "country": "India",
     "season" : 2012,
     "id":2,
-    "match_id":1
+    "match_id":2
   },
   {
     "name": "kholi",
@@ -21,6 +21,6 @@
     "country": "India",
     "season" : 2012,
     "id":3,
-    "match_id":1
+    "match_id":3
   }
 ]

@@ -1,8 +1,9 @@
-/* const matchesPlayed = require('../tasks/matchesPlayed.js');
+const matchesPlayed = require('../tasks/matchesPlayed.js');
 const fetchData = require('../util/fetchData.js');
 const matchesPlayedTestData = require('../testData/matchesPlayedPerYear.json');
 const { matchesFilePath } = require('../util/constants.js');
 const unsupportedData = require('../testData/unsupportedData.json');
+const wrongData = require('../testData/wrongData.json');
 
 let matchesData;
 
@@ -11,27 +12,31 @@ async function receiveData() {
 }
 beforeAll(receiveData);
 
-test(' check whether the matches-data is defiend or not ', () => {
-  expect(matchesData).toBeDefined();
+test(' check whether the matches-data is present or not', () => {
+  expect(matchesData.length).toBeTruthy();
 });
 
-test(' check whether the matches-data is not null', () => {
-  expect(matchesData).not.toBeNull();
+test(' Check for errors if provided with wrong path while fetching data ', async () => {
+  await expect(fetchData('../wrongpath/wrongfile.csv')).rejects.toThrow();
 });
 
 test(' Total Matches played in IPL ', () => {
   expect(matchesPlayed(matchesData)).toEqual(matchesPlayedTestData);
 });
 
-test('Checking for error if the data sent to the task-function is undefiend ', () => {
+test(' Total Matches played in IPL when provided with wrong data ', () => {
+  expect(matchesPlayed(wrongData)).not.toEqual(matchesPlayedTestData);
+});
+
+test('Checking for error when data sent to the task-function is undefiend ', () => {
   expect(() => {
-    matchesPlayed();
+    matchesPlayed(undefined);
   }).toThrow();
 });
 
-test('Checking for error if the data sent to the task-function is  null', () => {
+test('Checking for error when data sent to the task-function is  null', () => {
   expect(() => {
-    matchesPlayed('');
+    matchesPlayed(null);
   }).toThrow();
 });
 
@@ -40,4 +45,9 @@ test('Checking for unsupported data', () => {
     matchesPlayed(unsupportedData);
   }).toThrow();
 });
- */
+
+test('Checking for string data', () => {
+  expect(() => {
+    matchesPlayed('This is a string data');
+  }).toThrow();
+});
