@@ -1,6 +1,5 @@
 const fetchData = require('./util/fetchData.js');
 
-// Importing tasks functons
 const matchesPlayed = require('./tasks/matchesPlayed.js');
 const matchesWinPerTeam = require('./tasks/matchesWinPerTeam.js');
 const extraRuns = require('./tasks/extraRuns.js');
@@ -8,29 +7,58 @@ const economicalBowlers = require('./tasks/economicalBowlers.js');
 
 const writeData = require('./util/writeData.js');
 
+const logger = require('./util/winstonLogger.js');
 const {
-  matchesFilePath,
-  deliveriesFilePath,
-  writePathMatchesPlayed,
-  writePathMatchesWinPerTeam,
-  writePathExtraRuns,
-  writePathEconomicalBowlers,
+  MATCHES_FILE_PATH,
+  DELIVERIES_FILE_PATH,
+  WRITE_PATH_MATCHES_PLAYED,
+  WRITE_PATH_MATCHES_WON_PER_TEAM,
+  WRITE_PATH_EXTRA_RUNS,
+  WRITE_PATH_ECONOMICAL_BOWLERS,
 } = require('./util/constants.js');
 
 async function start() {
-  const matchesData = await fetchData(matchesFilePath);
-  const deliveriesData = await fetchData(deliveriesFilePath);
+  let matchesData;
+  let deliveriesData;
 
-  const matchesPlayedResult = matchesPlayed(matchesData);
-  writeData(writePathMatchesPlayed, matchesPlayedResult);
+  try {
+    matchesData = await fetchData(MATCHES_FILE_PATH);
+    deliveriesData = await fetchData(DELIVERIES_FILE_PATH);
+  } catch (err) {
+    console.log(`ERROR: ${err.message}`);
+    logger.error(err.stack);
+  }
 
-  const matchesWinPerTeamResult = matchesWinPerTeam(matchesData);
-  writeData(writePathMatchesWinPerTeam, matchesWinPerTeamResult);
+  try {
+    const matchesPlayedResult = matchesPlayed(matchesData);
+    writeData(WRITE_PATH_MATCHES_PLAYED, matchesPlayedResult);
+  } catch (err) {
+    console.log(`ERROR: ${err.message}`);
+    logger.error(err.stack);
+  }
 
-  const extraRunsResult = extraRuns(matchesData, deliveriesData);
-  writeData(writePathExtraRuns, extraRunsResult);
+  try {
+    const matchesWinPerTeamResult = matchesWinPerTeam(matchesData);
+    writeData(WRITE_PATH_MATCHES_WON_PER_TEAM, matchesWinPerTeamResult);
+  } catch (err) {
+    console.log(`ERROR: ${err.message}`);
+    logger.error(err.stack);
+  }
 
-  const economicalBowlersResult = economicalBowlers(matchesData, deliveriesData);
-  writeData(writePathEconomicalBowlers, economicalBowlersResult);
+  try {
+    const extraRunsResult = extraRuns(matchesData, deliveriesData);
+    writeData(WRITE_PATH_EXTRA_RUNS, extraRunsResult);
+  } catch (err) {
+    console.log(`ERROR: ${err.message}`);
+    logger.error(err.stack);
+  }
+
+  try {
+    const economicalBowlersResult = economicalBowlers(matchesData, deliveriesData);
+    writeData(WRITE_PATH_ECONOMICAL_BOWLERS, economicalBowlersResult);
+  } catch (err) {
+    console.log(`ERROR: ${err.message}`);
+    logger.error(err.stack);
+  }
 }
 start();
