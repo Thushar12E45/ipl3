@@ -1,15 +1,11 @@
 const fs = require('fs');
 
 function writeData(path, result) {
-  try {
-    const string1 = JSON.stringify(result);
+  const STRING_RESULT = JSON.stringify(result);
 
-    fs.writeFile(path, string1, function (err) {
-      if (err) throw err;
-      console.log('file writing complete');
-    });
-  } catch (err) {
-    console.log(err.message);
-  }
+  fs.writeFile(path, STRING_RESULT, function (err) {
+    if (err) throw err;
+    console.log('file writing complete');
+  });
 }
 module.exports = writeData;

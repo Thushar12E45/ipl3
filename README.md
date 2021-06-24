@@ -9,6 +9,29 @@
 
 Download the required data from [Kaggle](https://www.kaggle.com/manasgarg/ipl)
 
+## Install
+1. Install Node
+
+    https://nodejs.org/en/download/
+
+2. Clone this repository
+
+```
+git clone https://github.com/mountblue/mbcjs-16-1-ipl-Thushar12E45
+```
+3. Install npm packages
+``` 
+npm install 
+```
+4. Run project
+```
+node index.js
+```
+5. Run test
+```
+npm run test
+```
+
 ## Project Structure
  - ``index.js``: It is the main node JS file that fetches the required data from the ``fetchData`` function and calls the ``taskFunctions`` for the various tasks and stores the result from the functions in a file using the ``writeData`` function.
 
@@ -24,4 +47,5 @@ Download the required data from [Kaggle](https://www.kaggle.com/manasgarg/ipl)
 
  ## Technologies Used
  - JavaScript
+ - Jest
  

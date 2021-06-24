@@ -1,57 +1,57 @@
 const fetchData = require('../util/fetchData.js');
 const extraRuns = require('../tasks/extraRuns.js');
-const { matchesFilePath, deliveriesFilePath } = require('../util/constants.js');
+const { MATCHES_FILE_PATH, DELIVERIES_FILE_PATH } = require('../util/constants.js');
 const extraRunsTestData = require('../testData/extraRuns.json');
 const unsupportedData = require('../testData/unsupportedData.json');
 const unsupportedData2 = require('../testData/unsupportedData2.json');
-const wrongData = require('../testData/wrongData.json');
+const dummyData = require('../testData/dummyData.json');
 
 let matchesData;
 let deliveriesData;
 async function receiveData() {
-  matchesData = await fetchData(matchesFilePath);
-  deliveriesData = await fetchData(deliveriesFilePath);
+  matchesData = await fetchData(MATCHES_FILE_PATH);
+  deliveriesData = await fetchData(DELIVERIES_FILE_PATH);
 }
 beforeAll(receiveData);
 
-test(' check whether the matches-data or delivery-data is present or not', () => {
+test('Expect matches-data and deliveries-data to be present', () => {
   expect(matchesData.length).toBeTruthy();
   expect(deliveriesData.length).toBeTruthy();
 });
 
-test('Extra Runs conceded by each team in year 2016', () => {
+test('Expect extraRuns() to return correct-data when provided with matches and delivereies data', () => {
   expect(extraRuns(matchesData, deliveriesData)).toEqual(extraRunsTestData);
 });
 
-test('Checking for incorrect output when provided with wrong data ', () => {
-  expect(extraRuns(wrongData, wrongData)).not.toEqual(extraRunsTestData);
+test('Expect extraRuns() to return incorrect-output when provided with dummy data ', () => {
+  expect(extraRuns(dummyData, dummyData)).not.toEqual(extraRunsTestData);
 });
 
-test('Checking for error when data sent to the task-function is undefiend ', () => {
+test('Expect extraRuns() to throw error when undefiend data is passed as parameter ', () => {
   expect(() => {
     extraRuns(undefined, undefined);
   }).toThrow();
 });
 
-test('Checking for error  when data sent to the task-function is  null', () => {
+test('Expect extraRuns() to throw error when null data is passed as parameter ', () => {
   expect(() => {
     extraRuns(null, null);
   }).toThrow();
 });
 
-test('Checking for unsupported data', () => {
+test('Expect extraRuns() to throw error when the passed data does not season', () => {
   expect(() => {
     extraRuns(unsupportedData, unsupportedData);
   }).toThrow();
 });
 
-test('Checking for unsupported data which includes season', () => {
+test('Expect extraRuns() to throw error when passed with unSupported data', () => {
   expect(() => {
     extraRuns(unsupportedData2, unsupportedData2, 2012);
   }).toThrow();
 });
 
-test('Checking for different types of data edge-cases', () => {
+test('Expect extraRuns() to throw error when passed with different types of unSupported data', () => {
   expect(() => {
     extraRuns(unsupportedData, unsupportedData2, 2012);
   }).toThrow();

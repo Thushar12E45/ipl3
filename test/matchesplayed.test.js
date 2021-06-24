@@ -1,52 +1,52 @@
 const matchesPlayed = require('../tasks/matchesPlayed.js');
 const fetchData = require('../util/fetchData.js');
 const matchesPlayedTestData = require('../testData/matchesPlayedPerYear.json');
-const { matchesFilePath } = require('../util/constants.js');
+const { MATCHES_FILE_PATH } = require('../util/constants.js');
 const unsupportedData = require('../testData/unsupportedData.json');
-const wrongData = require('../testData/wrongData.json');
+const dummyData = require('../testData/dummyData.json');
 
 let matchesData;
 
 async function receiveData() {
-  matchesData = await fetchData(matchesFilePath);
+  matchesData = await fetchData(MATCHES_FILE_PATH);
 }
 beforeAll(receiveData);
 
-test(' check whether the matches-data is present or not', () => {
+test(' Expect matches-data to be present', () => {
   expect(matchesData.length).toBeTruthy();
 });
 
-test(' Check for errors if provided with wrong path while fetching data ', async () => {
+test(' Expect fetch() to throw error if provided with wrong path while fetching data ', async () => {
   await expect(fetchData('../wrongpath/wrongfile.csv')).rejects.toThrow();
 });
 
-test(' Total Matches played in IPL ', () => {
+test(' Expect matchesPlayed() to give correct data as output when matchesData is passed as argument ', () => {
   expect(matchesPlayed(matchesData)).toEqual(matchesPlayedTestData);
 });
 
-test(' Total Matches played in IPL when provided with wrong data ', () => {
-  expect(matchesPlayed(wrongData)).not.toEqual(matchesPlayedTestData);
+test('Expect matchesPlayed() to give incorrect result when dummy Data is passed as argument', () => {
+  expect(matchesPlayed(dummyData)).not.toEqual(matchesPlayedTestData);
 });
 
-test('Checking for error when data sent to the task-function is undefiend ', () => {
+test('Expect matchesPlayed() to throw error when undefined data is passed as parameter ', () => {
   expect(() => {
     matchesPlayed(undefined);
   }).toThrow();
 });
 
-test('Checking for error when data sent to the task-function is  null', () => {
+test('Expect matchesPlayed() to throw error when null data is passed as parameter ', () => {
   expect(() => {
     matchesPlayed(null);
   }).toThrow();
 });
 
-test('Checking for unsupported data', () => {
+test('Expect matchesPlayed() to throw error when unsupported data is passed as parameter ', () => {
   expect(() => {
     matchesPlayed(unsupportedData);
   }).toThrow();
 });
 
-test('Checking for string data', () => {
+test('Expect matchesPlayed() to throw error when string data is passed as parameter', () => {
   expect(() => {
     matchesPlayed('This is a string data');
   }).toThrow();

@@ -1,17 +1,15 @@
-const matchesFilePath = './inputData/matches.csv';
-const emptyFilePath = './testData/emptyData.csv';
-const deliveriesFilePath = './inputData/deliveries.csv';
-const writePathMatchesPlayed = './outputData/matchesPlayedPerYear.json';
-const writePathMatchesWinPerTeam = './outputData/matchesWonPerTeam.json';
-const writePathExtraRuns = './outputData/extraRuns.json';
-const writePathEconomicalBowlers = './outputData/bowlersEconomy.json';
+const MATCHES_FILE_PATH = './inputData/matches.csv';
+const DELIVERIES_FILE_PATH = './inputData/deliveries.csv';
+const WRITE_PATH_MATCHES_PLAYED = './outputData/matchesPlayedPerYear.json';
+const WRITE_PATH_MATCHES_WON_PER_TEAM = './outputData/matchesWonPerTeam.json';
+const WRITE_PATH_EXTRA_RUNS = './outputData/extraRuns.json';
+const WRITE_PATH_ECONOMICAL_BOWLERS = './outputData/bowlersEconomy.json';
 
 module.exports = {
-  matchesFilePath,
-  emptyFilePath,
-  deliveriesFilePath,
-  writePathMatchesPlayed,
-  writePathMatchesWinPerTeam,
-  writePathExtraRuns,
-  writePathEconomicalBowlers,
+  MATCHES_FILE_PATH,
+  DELIVERIES_FILE_PATH,
+  WRITE_PATH_MATCHES_PLAYED,
+  WRITE_PATH_MATCHES_WON_PER_TEAM,
+  WRITE_PATH_EXTRA_RUNS,
+  WRITE_PATH_ECONOMICAL_BOWLERS,
 };

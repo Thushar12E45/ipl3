@@ -1,57 +1,57 @@
 const fetchData = require('../util/fetchData.js');
 const economicalBowlers = require('../tasks/economicalBowlers.js');
 const economicalBowlersTestData = require('../testData/bowlersEconomy.json');
-const { matchesFilePath, deliveriesFilePath } = require('../util/constants.js');
+const { MATCHES_FILE_PATH, DELIVERIES_FILE_PATH } = require('../util/constants.js');
 const unsupportedData = require('../testData/unsupportedData.json');
 const unsupportedData2 = require('../testData/unsupportedData2.json');
-const wrongData = require('../testData/wrongData.json');
+const dummyData = require('../testData/dummyData.json');
 
 let matchesData;
 let deliveriesData;
 async function receiveData() {
-  matchesData = await fetchData(matchesFilePath);
-  deliveriesData = await fetchData(deliveriesFilePath);
+  matchesData = await fetchData(MATCHES_FILE_PATH);
+  deliveriesData = await fetchData(DELIVERIES_FILE_PATH);
 }
 beforeAll(receiveData);
 
-test(' check whether the matches-data or delivery data is present or not', () => {
+test('Expect matches-data and deliveries-data to be present', () => {
   expect(matchesData.length).toBeTruthy();
   expect(deliveriesData.length).toBeTruthy();
 });
 
-test('Checking the output data of top 10 Economical bowlers in 2015', () => {
-  expect(economicalBowlers(matchesData, deliveriesData)).toEqual(economicalBowlersTestData);
+test('Expect economicalBowlers() to return correct-data when provided with matches and delivereies data', () => {
+  expect(economicalBowlers(matchesData, deliveriesData, 2015)).toEqual(economicalBowlersTestData);
 });
 
-test('Checking for incorrect output when provided with wrong data', () => {
-  expect(economicalBowlers(wrongData, wrongData)).not.toEqual(economicalBowlersTestData);
+test('Expect economicalBowlers() to return incorrect-data when provided with dummy data', () => {
+  expect(economicalBowlers(dummyData, dummyData)).not.toEqual(economicalBowlersTestData);
 });
 
-test('Checking for error  when data sent to the task-function is undefiend ', () => {
+test('Expect extraBowlers() to throw error when undefiend data is passed as parameter', () => {
   expect(() => {
     economicalBowlers(undefined);
   }).toThrow();
 });
 
-test('Checking for error  when data sent to the task-function is null', () => {
+test('Expect extraBowlers() to throw error when null data is passed as parameter', () => {
   expect(() => {
     economicalBowlers(null, null);
   }).toThrow();
 });
 
-test('Checking for unsupported data', () => {
+test('Expect economicalBowlers() to throw error when passed with unSupported data', () => {
   expect(() => {
     economicalBowlers(unsupportedData, unsupportedData);
   }).toThrow();
 });
 
-test('Checking for unsupported data which includes season', () => {
+test('Expect economicalBowlers() to throw error when passed with unsupported data which includes season', () => {
   expect(() => {
     economicalBowlers(unsupportedData2, unsupportedData2, 2012);
   }).toThrow();
 });
 
-test('Checking for different types data, edge cases', () => {
+test('Expect extraRuns() to throw error when passed with different types of unSupported data, edge cases', () => {
   expect(() => {
     economicalBowlers(unsupportedData, unsupportedData2, 2012);
   }).toThrow();
